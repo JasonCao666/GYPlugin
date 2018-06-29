@@ -8,17 +8,16 @@
     "default_popup":"popup.html"
   },
   "permissions": [
-    "https://login.taobao.com/*"
+    "http://*/*","https://*/*"
   ],
   "background": {
-
+    "scripts":["jquery-3.3.1.js","background.js"],
+    "persistent": false
   },
   "content_scripts": [
     {
-      "matches": ["https://login.taobao.com/*"],
-      "js": ["taobao_login.js"],
-      "run_at": "document_end",
-      "all_frames": true
+      "matches":["https://www.myed.ed.ac.uk/*"],
+      "js": ["jquery-3.3.1.js","processContent.js"]
     }
   ]
 }
