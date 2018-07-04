@@ -5,17 +5,80 @@
     <title></title>
     <script src="jquery-3.3.1.js"></script>
     <script src="popup.js"></script>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="bootstrap-3.3.7.css">
+    <script src="bootstrap.min.js"></script>
 </head>
 
-<div class="container" style="width: 400px;text-align: center" id="about-box">
+<div class="container" style="width:400px;" id="about-box">
 
-    <div class="row">
+    <div class="row" style="text-align: center">
         <h3>Task</h3>
     </div>
+    <div>
 
-    <div class="row">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#task" aria-controls="home" role="tab" data-toggle="tab">task</a></li>
+            <li role="presentation"><a href="#expert" aria-controls="profile" role="tab" data-toggle="tab">expert</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="task">task list</div>
+            <div role="tabpanel" class="tab-pane" id="expert">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    add task
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Add task</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-inline" role="form">
+                                <div class="form-group">
+                                    <!--<span class="input-group-addon">
+                                        <input type="checkbox">
+                                    </span>-->
+                                    <label class="form-label">Task name</label>
+                                    <input type="text" class="form-control" id="taskName">
+                                </div><!-- /input-group -->
+                                    <div class="form-group">
+                                    <label class="form-label">Task description</label>
+                                        <textarea class="form-control" rows="3" name=textarea id="taskDescription"></textarea>
+                                </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="addTaskButton" data-dismiss="modal" >Save Task</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <table class="table table-hover table-bordered scrolltable" id="table">
+                        <tbody>
+                        <thead id="tem">
+                        <tr id="temtr">
+                            <th id="task_name">task name</th>
+                            <th id="task_description">task description</th>
+                            <th id="operation">operation</th>
+                        </tr>
+                        </thead>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row" style="text-align: center">
     <button type="button" class="btn btn-primary">start</button>
     <button type="button" class="btn btn-primary" id="stopButton">stop</button>
     </div>
