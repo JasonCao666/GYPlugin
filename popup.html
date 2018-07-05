@@ -5,6 +5,7 @@
     <title></title>
     <script src="jquery-3.3.1.js"></script>
     <script src="popup.js"></script>
+    <script src="test.js"></script>
     <link rel="stylesheet" href="bootstrap-3.3.7.css">
     <script src="bootstrap.min.js"></script>
 </head>
@@ -71,6 +72,36 @@
                         </thead>
                         </tbody>
                     </table>
+                </div>
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="editModalLabel">Edit task</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-inline" role="form">
+                                    <input type="text" class="form-control" id="edit_taskId" style="display:none;">
+                                    <div class="form-group">
+                                        <!--<span class="input-group-addon">
+                                            <input type="checkbox">
+                                        </span>-->
+                                        <label class="form-label">Task name</label>
+                                        <input type="text" class="form-control" id="edit_taskName">
+                                    </div><!-- /input-group -->
+                                    <div class="form-group">
+                                        <label class="form-label">Task description</label>
+                                        <textarea class="form-control" rows="3" name=textarea id="edit_taskDescription"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="editTaskButton" data-dismiss="modal" >Save Edit</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
