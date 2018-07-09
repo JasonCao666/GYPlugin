@@ -27,6 +27,23 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="task">
                 <button type="button" class="btn btn-primary" id="refresh_tasks">Refresh task</button>
+                <div class="row">
+                    <table class="table table-hover table-bordered scrolltable" id="table">
+                        <tbody>
+                        <thead id="u_tem">
+                        <tr id="u_temtr">
+                            <th id="u_task_name">task name</th>
+                            <th id="u_task_description">task description</th>
+                            <th id="u_status">status</th>
+                        </tr>
+                        </thead>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row" style="text-align: center">
+                    <button type="button" class="btn btn-primary" id="startButton">start</button>
+                    <button type="button" class="btn btn-primary" id="stopButton">stop</button>
+                </div>
 
             </div>
             <div role="tabpanel" class="tab-pane" id="expert">
@@ -107,16 +124,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="row" style="text-align: center">
+                    <button type="button" class="btn btn-primary" id="select_tasks">select</button>
+                </div>
             </div>
 
         </div>
 
     </div>
 
-    <div class="row" style="text-align: center">
-    <button type="button" class="btn btn-primary" id="select_tasks">select</button>
-    <button type="button" class="btn btn-primary" id="stopButton">stop</button>
-    </div>
+
     <div class="row">
         <div id="userProcedure"></div>
     </div>
