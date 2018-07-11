@@ -1,6 +1,7 @@
 var background = chrome.extension.getBackgroundPage();
 var taskList=new Array();
 var ps_list = $("#u_tem").html();
+var selected_single_task;
 
 window.addEventListener('DOMContentLoaded', function() {
 
@@ -35,7 +36,7 @@ window.addEventListener('DOMContentLoaded', function() {
             var id=e.target.name;
             //alert(th[1].innerHTML);
             //alert(th[2].innerHTML);
-            taskJson="[{\"id\":\""+id+"\",\"name\":\""+th[1].innerHTML+"\",\"description\":\""+th[2].innerHTML+"\"}]"
+            taskJson="[{\"id\":\""+id+"\",\"name\":\""+th[1].innerHTML+"\",\"description\":\""+th[2].innerHTML+"\",\"status\":\""+'unfinished'+"\"}]"
 
             if (!e.target.checked) {
                 for(i=0;i<taskList.length;i++)
@@ -47,16 +48,20 @@ window.addEventListener('DOMContentLoaded', function() {
                             taskList.splice( taskList.indexOf(i), 1);
                             break;
                         }
-
                     }
                 }
 
-                alert(taskList.length);
                 return;
             }
             else {
                 taskList.push(taskJson);
             }
+
+        }
+
+        if(e.target.name=="optionsRadios"){
+
+            selected_single_task=e.target.id;
 
         }
 
@@ -107,12 +112,14 @@ $(document).ready(function(){
 
         }
         alert('select tasks success');
-
     });
 
     $("#refresh_tasks").click(function () {
-        showSelectTask()
+        showSelectTask();
+    });
 
+    $("#startButton").click(function () {
+        timeInterval();
     });
 
 });
@@ -142,9 +149,7 @@ function prepare(){
                     " name=\""+ json[i]['id'] +"\">delete</button>");
                 //将新行添加到表格中
                 realrow.appendTo("#tem");
-
             }
-
         }
     });
 
@@ -181,19 +186,13 @@ function RespondAgain(){
         $("input[name='"+json[0]['id']+"']").each(function(){
             $(this).attr("checked",true);
         });
-
-
     }
-
-
 }
 
 
 function addTaskRequest() {
     var taskName=document.getElementById("taskName").value;
     var taskDescription=document.getElementById("taskDescription").value;
-
-
     taskDescription= taskDescription.replace(/\n|\r\n/g,"<br>");
     //var reg=new RegExp("<br>","g"); var newstr=remContent.replace(reg,"\n");
 
@@ -247,7 +246,6 @@ function editTaskRequest() {
 
 function delTaskRequest(id){
 
-
     $.ajax({
         url: "http://localhost:8080/task/delTask",
         type: "POST",
@@ -257,13 +255,10 @@ function delTaskRequest(id){
         },
         success: function (data) {
             if ("success" == data.result) {
-
                 alert("edit success");
                 prepare();
-
             }
             else {
-
                 alert("edit fail");
             }
         }
@@ -274,7 +269,6 @@ function delTaskRequest(id){
 function showSelectTask(){
 
     var select_task_list=background.selectedTasks;
-
     /*$("#u_temtr").html("<th id=\"u_task_name\">task name</th> " +
         "<th id=\"u_task_description\">task description</th> " +
         "<th id=\"u_status\">status</th>");*/
@@ -283,9 +277,12 @@ function showSelectTask(){
     for(i=0;i<select_task_list.length;i++){
         var realrow = $("#u_temtr").clone();
         var json = eval(JSON.parse(select_task_list[i]));
+        realrow.find("#u_select").html("<input type=\"radio\" name=\"optionsRadios\" id=\""+json[0]['id']+"\" " +
+           "value=\""+'unfinished'+"\">");
         realrow.find("#u_task_name").html(json[0]['name']);
         realrow.find("#u_task_description").html(json[0]['description']);
-        realrow.find("#u_status").html("<span class=\"glyphicon glyphicon-minus\" aria-hidden=\"true\"></span>");
+        //realrow.find("#u_status").html("<span class=\"glyphicon glyphicon-minus\" aria-hidden=\"true\"></span>");
+        realrow.find("#u_status").html(json[0]['status']);
         realrow.appendTo("#u_tem");
     }
 }
@@ -296,9 +293,25 @@ function existInBackground(current_task){
             if(background.selectedTasks[j]==current_task) {
                return true;
             }
-
     }
     return false;
 
 }
 
+function timeInterval(){
+    $("#code_send_btn").html("Time left: 60s");
+    background.time_left=59;
+    //var timeSec = 59;
+    var timeStr = '';
+    var codeTime = setInterval(function Internal(){
+        if ( background.time_left == 0){
+            $("#code_send_btn").html("finished");
+            $("#code_send_btn").removeAttr("disabled","disabled");
+            clearInterval(codeTime);
+            return;
+        }
+        timeStr = background.time_left+"s";
+        $("#code_send_btn").html("Time left: "+timeStr);
+        background.time_left--;
+    },1000);
+}

@@ -27,11 +27,14 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="task">
                 <button type="button" class="btn btn-primary" id="refresh_tasks">Refresh task</button>
+                <!--<span style="float:right;" id="code_send_btn"></span>-->
+                <span class="glyphicon glyphicon-time" aria-hidden="true" id="code_send_btn" style="float:right;"></span>
                 <div class="row">
                     <table class="table table-hover table-bordered scrolltable" id="table">
                         <tbody>
                         <thead id="u_tem">
                         <tr id="u_temtr">
+                            <th id="u_select">select task</th>
                             <th id="u_task_name">task name</th>
                             <th id="u_task_description">task description</th>
                             <th id="u_status">status</th>
