@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery-3.3.1.js"></script>
+    <script src="popup_bak.js"></script>
+    <script src="test.js"></script>
+    <link rel="stylesheet" href="bootstrap-3.3.7.css">
+    <script src="bootstrap.min.js"></script>
+</head>
+
+<div class="container" style="width:600px;" id="about-box">
+
+    <div class="row" style="text-align: center">
+        <h3>Task</h3>
+    </div>
+    <div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#task" aria-controls="home" role="tab" data-toggle="tab">task</a></li>
+            <li role="presentation"><a href="#expert" aria-controls="profile" role="tab" data-toggle="tab">expert</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="task">
+                <button type="button" class="btn btn-primary" id="refresh_tasks">Refresh task</button>
+                <!--<span style="float:right;" id="code_send_btn"></span>-->
+                <span class="glyphicon glyphicon-time" aria-hidden="true" id="code_send_btn" style="float:right;"></span>
+                <div class="row">
+                    <table class="table table-hover table-bordered scrolltable" id="table">
+                        <tbody>
+                        <thead id="u_tem">
+                        <tr id="u_temtr">
+                            <th id="u_select">select task</th>
+                            <th id="u_task_name">task name</th>
+                            <th id="u_task_description">task description</th>
+                            <th id="u_status">status</th>
+                        </tr>
+                        </thead>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row" style="text-align: center">
+                    <button type="button" class="btn btn-primary" id="startButton">start</button>
+                    <button type="button" class="btn btn-primary" id="stopButton">stop</button>
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="expert">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    Add task
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Add task</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-inline" role="form">
+                                <div class="form-group">
+                                    <!--<span class="input-group-addon">
+                                        <input type="checkbox">
+                                    </span>-->
+                                    <label class="form-label">Task name</label>
+                                    <input type="text" class="form-control" id="taskName">
+                                </div><!-- /input-group -->
+                                    <div class="form-group">
+                                    <label class="form-label">Task description</label>
+                                        <textarea class="form-control" rows="3" name=textarea id="taskDescription"></textarea>
+                                </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="addTaskButton" data-dismiss="modal" >Save Task</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <table class="table table-hover table-bordered scrolltable" id="table">
+                        <tbody>
+                        <thead id="tem">
+                        <tr id="temtr">
+                            <th id="task_select">select</th>
+                            <th id="task_name">task name</th>
+                            <th id="task_description">task description</th>
+                            <th id="operation">operation</th>
+                        </tr>
+                        </thead>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="editModalLabel">Edit task</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-inline" role="form">
+                                    <input type="text" class="form-control" id="edit_taskId" style="display:none;">
+                                    <div class="form-group">
+                                        <!--<span class="input-group-addon">
+                                            <input type="checkbox">
+                                        </span>-->
+                                        <label class="form-label">Task name</label>
+                                        <input type="text" class="form-control" id="edit_taskName">
+                                    </div><!-- /input-group -->
+                                    <div class="form-group">
+                                        <label class="form-label">Task description</label>
+                                        <textarea class="form-control" rows="3" name=textarea id="edit_taskDescription"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="editTaskButton" data-dismiss="modal" >Save Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="text-align: center">
+                    <button type="button" class="btn btn-primary" id="select_tasks">select</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div id="userProcedure"></div>
+    </div>
+</div>
+
+</body>
+</html>
