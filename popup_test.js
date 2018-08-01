@@ -41,6 +41,11 @@ window.addEventListener('DOMContentLoaded', function() {
         if(e.target.id=="startTask"){
             winBackgroundPage.remindContentStartTask();
         }
+        if(e.target.id=="stopTask"){
+            winBackgroundPage.nextTask();
+        }
     });
+
+
 });
 

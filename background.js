@@ -1,5 +1,5 @@
 var number=0;
-var userClick=[];
+var user_steps=new Array();
 var selectedTasks=[];
 var openFlag=0;
 var json;
@@ -7,7 +7,7 @@ var time_left;
 var current_task_index=0;
 var current_tasks=[];
 var current_port;
-
+var command_flag=0;
 /*chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         userClick=userClick+request.myMsg+",";
@@ -18,11 +18,26 @@ var current_port;
 
 chrome.runtime.onConnect.addListener(function(port) {
     current_port=port;
-
+    port.onMessage.addListener(function(msg) {
+        if (msg.question == "What is flag") {
+            port.postMessage({com_flag: command_flag});
+        }
+        else if(msg.user_click_step!= ""){
+            var step=removeAfterBeforeSpace(msg.user_click_step);
+            user_steps.push(step);
+        }
+    });
 });
 
 
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+        // read changeInfo data and do something with it (like read the url)
+        if(changeInfo.url && command_flag==1){
+            user_steps.push(changeInfo.url);
+        }
 
+    }
+);
 /*
 window.addEventListener('DOMContentLoaded', function() {
 
@@ -81,10 +96,14 @@ function prepare(){
         }
     });
 
+
 }
 function proSelect(id){
 
     initialTaskPage(id);
+    user_steps=new Array();
+    current_task_index=0;
+    command_flag=0;
 }
 
 
@@ -143,6 +162,8 @@ function initialTaskPage(proId){
         }
 
     }
+
+
 }
 
 function startTaskByIndex(index){
@@ -183,7 +204,21 @@ function remindContentStartTask()
 {
 
     if(current_port.name == "myConn"){
+        command_flag=1;
         current_port.postMessage({command: "Do it"});
-        
+
     }
+
+}
+
+function nextTask(){
+
+    for(var i=0;i<user_steps.length;i++){
+        alert(user_steps[i]);
+    }
+}
+
+function removeAfterBeforeSpace(str)
+{
+    return str.replace(/(^\s*)|(\s*$)/g, "");
 }
