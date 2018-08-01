@@ -5,13 +5,14 @@
   "description": "tasks",
   "browser_action": {
     "default_icon": "1.png",
-    "default_popup":"popup.html"
+    "default_popup":"popuptest.html"
   },
   "permissions": [
-    "http://*/*","https://*/*"
+    "http://*/*","https://*/*",
+    "tabs"
   ],
   "background": {
-    "scripts":["jquery-3.3.1.js","background.js"],
+    "page":"background.html",
     "persistent": true
   },
   "content_scripts": [

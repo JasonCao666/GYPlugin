@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.3.1.js"></script>
+    <script src="background.js"></script>
+
+</head>
+<body>
+<div class="container" style="width:600px;" id="about-box">
+
+    <div class="row" style="text-align: center">
+        <h3>Plugin</h3>
+    </div>
+    <div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#task" aria-controls="home" role="tab" data-toggle="tab">Task</a></li>
+            <li role="presentation"><a href="#expert" aria-controls="profile" role="tab" data-toggle="tab">Project</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="task">
+                <div id="tasks-execute" class="row">
+                    <div class="task_content">
+                        Please select project first
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="expert">
+
+                <div class="row">
+                    <ul class="project-ul" id="projects">
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div id="userProcedure"></div>
+    </div>
+</div>
+<!--<div class="container" style="width:600px;" id="about-box">
+This is a test!
+    //"scripts":["jquery-3.3.1.js","background.js"],
+</div>-->
+</body>
+
+</html>

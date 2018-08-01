@@ -5,40 +5,85 @@
     <title></title>
     <script src="jquery-3.3.1.js"></script>
     <script src="popup.js"></script>
-    <script src="test.js"></script>
     <link rel="stylesheet" href="bootstrap-3.3.7.css">
     <script src="bootstrap.min.js"></script>
+    <style>
+        .project-ul{
+            display: inline-block;
+            width:90%;
+
+        }
+        .project-ul li{
+            list-style-type: none;
+            width:90%;
+            background: #f9f9f9;
+            margin-top:10px;
+        }
+        .pro_detail{
+            display: inline-block;
+        }
+        .project_description{
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            text-overflow:ellipsis;
+            font-size: 5pt;
+        }
+        .btn-sm{
+            background: #5cb85c;
+            color: white;
+            float: right;
+        }
+        .task_content{
+            height:100px;
+            margin-left:10px;
+            text-align: center;
+        }
+        .task_opt{
+            text-align: center;
+            float:left;
+        }
+        #taskStart{
+            margin-left: 10px;
+            margin-top: 20px;
+        }
+        #taskComplete{
+            margin-left: 10px;
+            margin-top: 20px;
+        }
+
+
+    </style>
 </head>
 
 <div class="container" style="width:600px;" id="about-box">
 
     <div class="row" style="text-align: center">
-        <h3>Task</h3>
+        <h3>Plugin</h3>
     </div>
     <div>
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#task" aria-controls="home" role="tab" data-toggle="tab">task</a></li>
-            <li role="presentation"><a href="#expert" aria-controls="profile" role="tab" data-toggle="tab">expert</a></li>
+            <li role="presentation" class="active"><a href="#task" aria-controls="home" role="tab" data-toggle="tab">Task</a></li>
+            <li role="presentation"><a href="#expert" aria-controls="profile" role="tab" data-toggle="tab">Project</a></li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="task">
+                <div id="tasks-execute" class="row">
 
+                </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="expert">
 
                 <div class="row">
-                    <ul id="projects">
+                    <ul class="project-ul" id="projects">
 
                     </ul>
                 </div>
 
-                <div class="row" style="text-align: center">
-                    <button type="button" class="btn btn-primary" id="select_tasks">select</button>
-                </div>
             </div>
 
         </div>
