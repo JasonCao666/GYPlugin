@@ -14,7 +14,21 @@
         <h3>Plugin</h3>
     </div>
     <div>
-
+        <div class="row">
+            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="proEditModalLabel">Are you sure to go to next task</h4>
+                        </div>
+                        <div class="modal-body" style="text-align: center;">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" style="background:#5cb85c;color: white;" id="confirmButton" data-dismiss="modal">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#task" aria-controls="home" role="tab" data-toggle="tab">Task</a></li>

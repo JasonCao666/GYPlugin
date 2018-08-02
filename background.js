@@ -1,13 +1,13 @@
 var number=0;
 var user_steps=new Array();
-var selectedTasks=[];
-var openFlag=0;
 var json;
-var time_left;
 var current_task_index=0;
 var current_tasks=[];
 var current_port;
 var command_flag=0;
+var JSON_output="";
+var task_complete_time=0;
+var time_count;
 /*chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         userClick=userClick+request.myMsg+",";
@@ -109,9 +109,11 @@ function proSelect(id){
 
 function initialTaskPage(proId){
 
+
     var pro_json=json;
     for (var i = 0; i < pro_json.length; i++) {
         if(proId==pro_json[i]['id']){
+            JSON_output+="[{\"proId\":\""+pro_json[i]['id']+"\",";
             document.getElementById("tasks-execute").innerHTML="";
             var tasks=eval(pro_json[i]['tasks']);
             tasks.sort(compare);
@@ -167,6 +169,14 @@ function initialTaskPage(proId){
 }
 
 function startTaskByIndex(index){
+
+    if(current_task_index==0){
+        JSON_output+="\"reports\":[{\"taskId\":\""+current_tasks[current_task_index]['id']+"\",";
+    }
+    else{
+        JSON_output+="{\"taskId\":\""+current_tasks[current_task_index]['id']+"\",";
+    }
+
     document.getElementById("task_content").innerHTML="";
     document.getElementById("task_opt").innerHTML="";
     var div_task_name= document.createElement("h4");
@@ -187,6 +197,8 @@ function startTaskByIndex(index){
     button2.setAttribute("type","button");
     button2.setAttribute("class","startEvaluateBtn");
     button2.setAttribute("id","stopTask");
+    button2.setAttribute("data-toggle","modal");
+    button2.setAttribute("data-target","#confirmModal");
     button2.value="stop";
 
     document.getElementById("task_content").appendChild(div_task_name);
@@ -208,17 +220,52 @@ function remindContentStartTask()
         current_port.postMessage({command: "Do it"});
 
     }
+    time_count=timer();
 
 }
 
 function nextTask(){
 
-    for(var i=0;i<user_steps.length;i++){
+    /*for(var i=0;i<user_steps.length;i++){
         alert(user_steps[i]);
+    }*/
+    if(current_task_index!=current_tasks.length-1){
+        JSON_output+="\"time\":\""+task_complete_time+"\",\"steps\":\""+user_steps.toString()+"\"},";
+        current_task_index=current_task_index+1;
+
+        startTaskByIndex(current_task_index);
     }
+    else if(current_task_index==current_tasks.length-1){
+        JSON_output+="\"time\":\""+task_complete_time+"\",\"steps\":\""+user_steps.toString()+"\"}]}]";
+        current_task_index=current_task_index+1;
+        document.getElementById("tasks-execute").innerHTML="";
+        var div_task_content= document.createElement("div");
+        div_task_content.setAttribute("class","task_content");
+        div_task_content.setAttribute("id","task_content");
+        div_task_content.innerHTML="The evaluation has completed. Thanks for participating.";
+        document.getElementById("tasks-execute").appendChild(div_task_content);
+
+    }
+    alert(JSON_output);
+    task_complete_time=0;
+    clearInterval(time_count);
+    user_steps=new Array();
+    command_flag=0;
 }
 
 function removeAfterBeforeSpace(str)
 {
     return str.replace(/(^\s*)|(\s*$)/g, "");
+}
+
+/*function timedCount()
+{
+    task_complete_time=task_complete_time+1;
+    time_count=setTimeout("timedCount()",1000);
+}*/
+
+function timer() {
+    return setInterval(function () {
+        task_complete_time++;
+    }, 1000);
 }

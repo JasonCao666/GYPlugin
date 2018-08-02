@@ -35,14 +35,13 @@ window.addEventListener('DOMContentLoaded', function() {
                     alert("Please return to "+valitadeURL);
                 }
             });
-
-
         }
         if(e.target.id=="startTask"){
             winBackgroundPage.remindContentStartTask();
         }
-        if(e.target.id=="stopTask"){
+        if(e.target.id=="confirmButton"){
             winBackgroundPage.nextTask();
+            document.body.innerHTML=winBackgroundPage.document.body.innerHTML;
         }
     });
 

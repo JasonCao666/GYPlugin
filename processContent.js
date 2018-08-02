@@ -12,7 +12,7 @@ $(document).ready(function(){
 port.onMessage.addListener(function(msg) {
 
     if (msg.command == "Do it"){
-        alert("comm sucess");
+        alert("comm success");
         command_flag=1;
 
     }
