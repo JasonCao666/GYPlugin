@@ -37,11 +37,13 @@ window.addEventListener('DOMContentLoaded', function() {
             });
         }
         if(e.target.id=="startTask"){
+            chrome.tabs.update({url:winBackgroundPage.current_home_page});
             winBackgroundPage.remindContentStartTask();
         }
         if(e.target.id=="confirmButton"){
             winBackgroundPage.nextTask();
             document.body.innerHTML=winBackgroundPage.document.body.innerHTML;
+
         }
     });
 

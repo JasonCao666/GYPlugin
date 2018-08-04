@@ -8,6 +8,7 @@ var command_flag=0;
 var JSON_output="";
 var task_complete_time=0;
 var time_count;
+var current_home_page;
 /*chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         userClick=userClick+request.myMsg+",";
@@ -99,8 +100,9 @@ function prepare(){
 
 }
 function proSelect(id){
-
+    JSON_output="";
     initialTaskPage(id);
+
     user_steps=new Array();
     current_task_index=0;
     command_flag=0;
@@ -113,7 +115,8 @@ function initialTaskPage(proId){
     var pro_json=json;
     for (var i = 0; i < pro_json.length; i++) {
         if(proId==pro_json[i]['id']){
-            JSON_output+="[{\"proId\":\""+pro_json[i]['id']+"\",";
+            JSON_output+="{\"proId\":\""+pro_json[i]['id']+"\",";
+            current_home_page=pro_json[i]['websiteURL'];
             document.getElementById("tasks-execute").innerHTML="";
             var tasks=eval(pro_json[i]['tasks']);
             tasks.sort(compare);
@@ -158,9 +161,6 @@ function initialTaskPage(proId){
             div_task_opt.appendChild(button1);
             document.getElementById("tasks-execute").appendChild(div_task_content);
             document.getElementById("tasks-execute").appendChild(div_task_opt);*/
-
-
-
         }
 
     }
@@ -236,7 +236,7 @@ function nextTask(){
         startTaskByIndex(current_task_index);
     }
     else if(current_task_index==current_tasks.length-1){
-        JSON_output+="\"time\":\""+task_complete_time+"\",\"steps\":\""+user_steps.toString()+"\"}]}]";
+        JSON_output+="\"time\":\""+task_complete_time+"\",\"steps\":\""+user_steps.toString()+"\"}]}";
         current_task_index=current_task_index+1;
         document.getElementById("tasks-execute").innerHTML="";
         var div_task_content= document.createElement("div");
@@ -244,6 +244,23 @@ function nextTask(){
         div_task_content.setAttribute("id","task_content");
         div_task_content.innerHTML="The evaluation has completed. Thanks for participating.";
         document.getElementById("tasks-execute").appendChild(div_task_content);
+
+        $.ajax({
+            url: "http://localhost:8080/report/addReport",
+            type: "POST",
+            dataType: "json",
+            data: {
+                "reportJson": JSON_output,
+            },
+            success: function(data) {
+                if ("success" == data.result) {
+                    alert("evaluation success");
+                }
+                else{
+                    alert("cannot save");
+                }
+            }
+        });
 
     }
     alert(JSON_output);
